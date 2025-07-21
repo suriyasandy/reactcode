@@ -1,0 +1,85 @@
+const [productType, setProductType] = useState('');
+  const [selectedLegalEntities, setSelectedLegalEntities] = useState([]);
+  const [selectedSourceSystems, setSelectedSourceSystems] = useState([]);
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
+  const [thresholdMode, setThresholdMode] = useState('groupwise');
+  const [thresholdFile, setThresholdFile] = useState(null);
+
+  const handleFileUpload = (e) => {
+    setThresholdFile(e.target.files[0]);
+  };
+
+  const handleMultiSelect = (e, setter) => {
+    const options = Array.from(e.target.selectedOptions, option => option.value);
+    setter(options);
+  };
+
+  return (
+    <div className="App">
+      <h1>FX Threshold Deviation Dashboard</h1>
+
+      <div className="sidebar">
+        <h2>Filters</h2>
+
+        <label>
+          Product Type:
+          <select value={productType} onChange={(e) => setProductType(e.target.value)}>
+            <option value="">Select Product Type</option>
+            {productTypes.map((type) => (
+              <option key={type} value={type}>{type}</option>
+            ))}
+          </select>
+        </label>
+
+        <label>
+          Legal Entities (Multi-select):
+          <select multiple value={selectedLegalEntities} onChange={(e) => handleMultiSelect(e, setSelectedLegalEntities)}>
+            {legalEntities.map((entity) => (
+              <option key={entity} value={entity}>{entity}</option>
+            ))}
+          </select>
+        </label>
+
+        <label>
+          Source Systems (Multi-select):
+          <select multiple value={selectedSourceSystems} onChange={(e) => handleMultiSelect(e, setSelectedSourceSystems)}>
+            {sourceSystems.map((system) => (
+              <option key={system} value={system}>{system}</option>
+            ))}
+          </select>
+        </label>
+
+        <label>
+          Start Date:
+          <input type="date" value={startDate} onChange={(e) => setStartDate(e.target.value)} />
+        </label>
+
+        <label>
+          End Date:
+          <input type="date" value={endDate} onChange={(e) => setEndDate(e.target.value)} />
+        </label>
+
+        <label>
+          Threshold Mode:
+          <select value={thresholdMode} onChange={(e) => setThresholdMode(e.target.value)}>
+            <option value="groupwise">Group-wise</option>
+            <option value="currencywise">Currency-wise</option>
+          </select>
+        </label>
+
+        <label>
+          Upload Threshold File:
+          <input type="file" onChange={handleFileUpload} />
+        </label>
+      </div>
+
+      <div className="dashboard">
+        <h2>Threshold View & Impact Analysis</h2>
+        <p>Data visualizations will be displayed here.</p>
+      </div>
+    </div>
+  );
+}
+
+export default App;
