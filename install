@@ -10,3 +10,6 @@ npm install lucide-react
 
 # Class merging utility (used by shadcn)
 npm install class-variance-authority clsx tailwind-variants
+
+
+npm install -D tailwindcss postcss autoprefixer @tailwindcss/postcss
